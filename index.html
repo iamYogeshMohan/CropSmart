@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Crop Advisory</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts: Inter and Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i> CropSmart
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active" data-i18n="nav-home">Home</a></li>
+            <li><a href="about.html" data-i18n="nav-about">About</a></li>
+            <li><a href="farming.html" data-i18n="nav-farming">Farming</a></li>
+            <li><a href="#community-section" data-i18n="nav-community">Community</a></li>
+            <li><a href="dashboard.html" data-i18n="nav-dashboard">Dashboard</a></li>
+            <div class="lang-select-container">
+                <select id="language-select" class="lang-select" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी (Hindi)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                </select>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <i id="theme-icon" class="fas fa-moon"></i>
+            </button>
+        </ul>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1 data-i18n="hero-title">Better Farming, Better Harvest</h1>
+            <p data-i18n="hero-desc">Get expert advice based on your soil, reliable weather updates, and instant crop
+                health checks.</p>
+            <button class="voice-btn" onclick="speakText('hero-desc')" title="Listen"><i
+                    class="fas fa-volume-up"></i></button>
+            <div class="cta-group">
+                <a href="dashboard.html" class="btn btn-primary"><i class="fas fa-map-marker-alt"></i> <span
+                        data-i18n="btn-check-farm">Check My Farm</span></a>
+                <a href="farming.html" class="btn btn-secondary"><i class="fas fa-cloud-sun"></i> <span
+                        data-i18n="btn-weather-alerts">Weather Alerts</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Benefits Section -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="icon-box"><i class="fas fa-cloud-sun-rain"></i></div>
+            <h3 data-i18n="feat-weather">Weather Updates</h3>
+            <p data-i18n="feat-weather-desc">Know when to water and when to harvest.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon-box"><i class="fas fa-flask"></i></div>
+            <h3 data-i18n="feat-soil">Soil Analysis</h3>
+            <p data-i18n="feat-soil-desc">Understand your soil health and needs.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon-box"><i class="fas fa-seedling"></i></div>
+            <h3 data-i18n="feat-advice">Crop Advice</h3>
+            <p data-i18n="feat-advice-desc">Expert recommendations for maximum yield.</p>
+        </div>
+    </section>
+
+    <!-- Current Status Section -->
+    <section id="status-section"
+        style="padding: 4rem 5%; background: linear-gradient(to bottom, #f9f9f9, #e8f5e9); text-align: center;">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2><i class="fas fa-map-marker-alt"></i> Current Farm Status</h2>
+            <p style="margin-bottom: 2rem; color: #666;">Based on your detected location.</p>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fas fa-temperature-high"></i></div>
+                    <h3>28°C</h3>
+                    <p>Temperature</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fas fa-tint"></i></div>
+                    <h3>65%</h3>
+                    <p>Humidity</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fas fa-layer-group"></i></div>
+                    <h3>Loamy</h3>
+                    <p>Soil Type</p>
+                </div>
+            </div>
+
+            <div style="margin-top:2rem;">
+                <a href="farming.html" class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.2rem;">
+                    <i class="fas fa-seedling"></i> Go to Farming Dashboard
+                </a>
+            </div>
+        </div>
+    </section>
+    </div>
+    </div>
+    </section>
+
+    </section>
+
+    <!-- Community / Success Stories -->
+    <section id="community-section" class="community-section">
+        <h2 data-i18n="sec-community">Farmer Community</h2>
+        <p data-i18n="community-desc">See success stories from farmers like you.</p>
+
+        <div class="stories-grid">
+            <!-- Story 1 -->
+            <div class="story-card">
+                <div class="story-header">
+                    <div class="farmer-avatar"><i class="fas fa-user"></i></div>
+                    <div class="farmer-info">
+                        <h4 data-i18n="story-1-name">Ramesh, Punjab</h4>
+                        <span>5 Acres</span>
+                    </div>
+                </div>
+                <div class="story-stats">
+                    <div class="stat-item"><strong data-i18n="lbl-crop">Crop:</strong> Wheat</div>
+                    <div class="stat-item"><strong data-i18n="lbl-yield">Yield:</strong> +20%</div>
+                </div>
+                <p class="story-quote" data-i18n="story-1-quote">"Smart Crop Advisory helped me choose the right time
+                    for sowing. Yield increased significantly!"</p>
+            </div>
+
+            <!-- Story 2 -->
+            <div class="story-card">
+                <div class="story-header">
+                    <div class="farmer-avatar"><i class="fas fa-user"></i></div>
+                    <div class="farmer-info">
+                        <h4 data-i18n="story-2-name">Lakshmi, Tamil Nadu</h4>
+                        <span>3 Acres</span>
+                    </div>
+                </div>
+                <div class="story-stats">
+                    <div class="stat-item"><strong data-i18n="lbl-crop">Crop:</strong> Rice</div>
+                    <div class="stat-item"><strong data-i18n="lbl-yield">Yield:</strong> Saved</div>
+                </div>
+                <p class="story-quote" data-i18n="story-2-quote">"The disease detection feature saved my rice crop from
+                    severe blight. Very useful app!"</p>
+            </div>
+
+            <!-- Story 3 -->
+            <div class="story-card">
+                <div class="story-header">
+                    <div class="farmer-avatar"><i class="fas fa-user"></i></div>
+                    <div class="farmer-info">
+                        <h4 data-i18n="story-3-name">Venkat, Telangana</h4>
+                        <span>10 Acres</span>
+                    </div>
+                </div>
+                <div class="story-stats">
+                    <div class="stat-item"><strong data-i18n="lbl-crop">Crop:</strong> Cotton</div>
+                    <div class="stat-item"><strong data-i18n="lbl-yield">Yield:</strong> High Quality</div>
+                </div>
+                <p class="story-quote" data-i18n="story-3-quote">"Soil analysis is very accurate. I used the recommended
+                    fertilizers and got high quality cotton."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+    </footer>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/analysis.js"></script>
+    <script src="js/farming_data.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/weather.js"></script>
+</body>
+
+</html>

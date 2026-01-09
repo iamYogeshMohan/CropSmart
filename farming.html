@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farming Dashboard - Smart Crop Advisory</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dashboard-body">
+
+    <!-- Top Nav -->
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-leaf"></i> Crop Smart</div>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <a href="index.html" class="btn btn-secondary" style="padding: 0.5rem 1rem;">Back to Home</a>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <i id="theme-icon" class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul>
+                <li onclick="backToSelector()" class="active"><i class="fas fa-th-large"></i> Crops</li>
+                <li><i class="fas fa-cloud-sun"></i> Weather</li>
+                <li><i class="fas fa-calendar-alt"></i> Calendar</li>
+                <li><i class="fas fa-notes-medical"></i> Health</li>
+                <li><i class="fas fa-chart-line"></i> Market</li>
+            </ul>
+        </aside>
+
+        <!-- Content -->
+        <main class="content-area">
+
+            <!-- 1. Crop Selector View -->
+            <div id="crop-selector" class="section-view">
+                <h2><i class="fas fa-seedling"></i> Select Your Crop</h2>
+                <p>Choose a crop to view intelligent insights and calendar.</p>
+                <div id="crop-grid" class="crop-grid-select">
+                    <!-- JS Injected -->
+                </div>
+            </div>
+
+            <!-- 2. Detailed Dashboard View (Hidden by default) -->
+            <div id="dashboard-view" class="section-view" style="display:none;">
+                <button onclick="backToSelector()" class="btn-back"><i class="fas fa-arrow-left"></i> Change
+                    Crop</button>
+
+                <div class="dash-header-card">
+                    <img id="crop-img-main" src="" alt="Crop">
+                    <div>
+                        <h1 id="selected-crop-name">Crop Name</h1>
+                        <span class="tag tag-high">Active Season</span>
+                    </div>
+                </div>
+
+                <!-- Weather Alert -->
+                <div id="dash-alert" class="alert-banner">Loading Alerts...</div>
+
+                <!-- 5-Day Forecast Row -->
+                <div class="dash-card">
+                    <h3><i class="fas fa-cloud-sun"></i> 5-Day Weather Forecast</h3>
+                    <div id="dash-forecast-container" class="forecast-grid">
+                        <!-- JS Injected -->
+                    </div>
+                </div>
+
+                <div class="dash-grid-layout">
+                    <!-- Left Col -->
+                    <div class="dash-col-left">
+                        <!-- Key Requirements -->
+                        <div class="dash-card">
+                            <h3><i class="fas fa-clipboard-list"></i> Key Requirements</h3>
+                            <div class="req-list">
+                                <div class="req-item"><i class="fas fa-layer-group"></i> <span id="req-soil">-</span>
+                                </div>
+                                <div class="req-item"><i class="fas fa-temperature-high"></i> <span
+                                        id="req-temp">-</span></div>
+                                <div class="req-item"><i class="fas fa-tint"></i> <span id="req-water">-</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Smart Fertilizer & Water -->
+                        <div class="dash-card">
+                            <h3><i class="fas fa-fill-drip"></i> Smart Advisory</h3>
+                            <div class="advice-block">
+                                <strong>Irrigation:</strong> <span id="adv-irrigation">-</span>
+                            </div>
+                            <div class="advice-block">
+                                <strong>Fertilizer (NPK):</strong> <span id="adv-fertilizer-npk">-</span>
+                            </div>
+                            <div class="advice-block">
+                                <strong>Organic:</strong> <span id="adv-fertilizer-org">-</span>
+                            </div>
+                            <div class="cost-tip"><i class="fas fa-piggy-bank"></i> <span id="adv-tip"></span></div>
+                        </div>
+
+                        <!-- Market -->
+                        <div class="dash-card">
+                            <h3><i class="fas fa-chart-line"></i> Market Insights</h3>
+                            <div class="market-row">
+                                <span>Current Price:</span> <strong id="mkt-price">₹ -</strong>
+                            </div>
+                            <div class="market-row">
+                                <span>Trend:</span> <span id="mkt-trend">-</span>
+                            </div>
+                            <p class="prediction-text" id="mkt-predict">Loading prediction...</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Col -->
+                    <div class="dash-col-right">
+                        <!-- Calendar -->
+                        <div class="dash-card">
+                            <h3><i class="fas fa-calendar-check"></i> Crop Calendar</h3>
+                            <div id="calendar-timeline" class="timeline-container">
+                                <!-- JS Injected -->
+                            </div>
+                        </div>
+
+                        <!-- Pest Management -->
+                        <div class="dash-card">
+                            <h3><i class="fas fa-bug"></i> Pest & Disease Detection</h3>
+                            <p class="sub-text" style="color:#666; margin-bottom:1rem;">Monitor for pests or scan a leaf
+                                for instant diagnosis.</p>
+
+                            <div id="pest-container" class="pest-list">
+                                <!-- JS Injected Pests -->
+                            </div>
+
+                            <!-- Scan Section -->
+                            <div style="margin-top:2rem; border-top:1px solid #eee; padding-top:1rem;">
+                                <h4><i class="fas fa-camera"></i> AI Leaf Doctor</h4>
+                                <div id="scan-preview"></div>
+
+                                <label for="camera-input" class="btn btn-primary"
+                                    style="width:100%; display:block; text-align:center; margin-top:0.5rem; cursor:pointer;">
+                                    <i class="fas fa-upload"></i> Scan Leaf Now
+                                </label>
+                                <input type="file" id="camera-input" accept="image/*" capture="environment" hidden>
+
+                                <div id="analysis-result"
+                                    style="display:none; margin-top: 1rem; padding:1rem; background:#f9f9f9; border-radius:10px;">
+                                    <p id="health-status">Checking...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="js/farming_data.js"></script>
+    <script src="js/farming_ui.js"></script>
+    <script src="js/analysis.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

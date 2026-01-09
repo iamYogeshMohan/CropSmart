@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Dashboard - Smart Crop Advisory</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Leaflet Control Geocoder CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i> CropSmart
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" data-i18n="nav-home">Home</a></li>
+            <li><a href="about.html" data-i18n="nav-about">About</a></li>
+            <li><a href="farming.html" data-i18n="nav-farming">Farming</a></li>
+            <li><a href="index.html#community-section" data-i18n="nav-community">Community</a></li>
+            <li><a href="dashboard.html" class="active" data-i18n="nav-dashboard">Dashboard</a></li>
+            <div class="lang-select-container">
+                <select id="language-select" class="lang-select" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी (Hindi)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                </select>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <i id="theme-icon" class="fas fa-moon"></i>
+            </button>
+        </ul>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+
+        <!-- Step 1: Location & Map -->
+        <section class="dashboard-section map-section">
+            <h2><span class="step-badge">1</span> <span data-i18n="dash-step-1">Select Your Farm Location</span></h2>
+            <p class="instruction-text" data-i18n="dash-instr-1">Tap anywhere on the map to mark your land, or use "My
+                GPS Location".</p>
+            <div id="map" class="map-container-large"></div>
+            <div class="action-row">
+                <div class="location-info">
+                    <p><i class="fas fa-map-marker-alt"></i> <span data-i18n="loc-selected">Selected:</span> <span
+                            id="location-text">No location
+                            selected</span></p>
+                    <p class="sub-info" id="zone-text"></p>
+                </div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="detectLocation()" style="margin-top:0.5rem">
+                <i class="fas fa-crosshairs"></i> <span data-i18n="btn-gps">Use My GPS Location</span>
+            </button>
+        </section>
+
+        <!-- Step 3: Recommendations (Initially Hidden) -->
+        <section id="recommendation-section" class="dashboard-section" style="display:none;">
+            <h2><span class="step-badge">2</span> <span data-i18n="dash-step-2">Recommended Crops for You</span></h2>
+
+            <!-- Analysis Summary Banner -->
+            <div id="conditions-banner" class="analysis-summary"
+                style="display:none; margin-bottom:1.5rem; background:#e8f5e9; padding:1rem; border-radius:10px; border-left:5px solid var(--primary-color);">
+                <h4 style="color:var(--primary-color); margin-bottom:0.5rem;"><i class="fas fa-clipboard-check"></i>
+                    Analysis Report:</h4>
+                <div class="conditions-grid" style="display:flex; gap:1.5rem; flex-wrap:wrap; align-items:center;">
+                    <div class="condition-item" style="display:flex; align-items:center; gap:0.5rem;">
+                        <img src="assets/icon_soil.png" alt="Soil" style="width:32px; height:32px;">
+                        <span>Soil: <strong id="res-soil">--</strong></span>
+                    </div>
+                    <div class="condition-item" style="display:flex; align-items:center; gap:0.5rem;">
+                        <img src="assets/icon_rain.png" alt="Rain" style="width:32px; height:32px;">
+                        <span>Rainfall: <strong id="res-rain">--</strong></span>
+                    </div>
+                    <div class="condition-item" style="display:flex; align-items:center; gap:0.5rem;">
+                        <img src="assets/icon_temp.png" alt="Temp" style="width:32px; height:32px;">
+                        <span>Temp: <strong id="res-temp">--</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="instruction-text" data-i18n="dash-instr-2">Based on your location and season.</p>
+            <div class="crop-grid" id="crop-grid">
+                <!-- Cards injected by JS -->
+            </div>
+        </section>
+
+        <!-- Extra Tools -->
+        <section class="dashboard-grid">
+            <!-- Soil Card -->
+            <div class="card soil-card" style="text-align:center;">
+                <h3><i class="fas fa-flask"></i> <span data-i18n="soil-check">Quick Soil Check</span></h3>
+
+                <img id="current-soil-img" src="assets/icon_soil.png" alt="Soil Icon"
+                    style="width:80px; height:80px; border-radius:50%; object-fit:cover; margin: 0.5rem auto; display:block; border: 3px solid #eee;">
+
+                <p class="small-text" data-i18n="soil-instr">Refine recommendations by adding soil details.</p>
+                <form id="soil-form">
+                    <div class="form-group">
+                        <label data-i18n="lbl-soil-type">Soil Type:</label>
+                        <select id="soil-type" onchange="updateSoilImage()">
+                            <option value="" data-i18n="opt-select-soil">Select Soil Type</option>
+                            <option value="black">Black Soil</option>
+                            <option value="red">Red Soil</option>
+                            <option value="clay">Clay Soil</option>
+                            <option value="sandy">Sandy Soil</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="updateRecs()"><span
+                            data-i18n="btn-update-advice">Update Advice</span></button>
+                </form>
+            </div>
+
+            <!-- Health Check -->
+            <div class="card action-card" style="text-align:center;">
+                <h3><i class="fas fa-camera"></i> <span data-i18n="health-scan">Crop Health Scan</span></h3>
+
+                <img src="assets/scan_icon.png" alt="Scan Icon"
+                    style="width:80px; margin: 0.5rem auto; display:block; opacity:0.8;">
+
+                <div id="scan-preview"></div>
+
+                <div class="upload-area-small">
+                    <p data-i18n="scan-instr">Take a photo of a leaf to check for diseases.</p>
+                    <label for="camera-input" class="btn btn-primary btn-sm">
+                        <i class="fas fa-camera"></i> <span data-i18n="btn-scan-now">Scan Now</span>
+                    </label>
+                    <input type="file" id="camera-input" accept="image/*" capture="environment" hidden>
+                </div>
+                <div id="analysis-result" class="analysis-result" style="display:none;">
+                    <p id="health-status">Checking...</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modal for Crop Details -->
+    <div id="crop-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Leaflet Control Geocoder JS -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/advisory.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/analysis.js"></script>
+    <script src="js/farming_data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>
