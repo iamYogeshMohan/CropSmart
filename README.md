@@ -51,22 +51,22 @@ Crop Smart is an intelligent farming assistance application designed to support 
 
    * Alerts farmers about:
 
-     * Heavy rainfall 🌧️
-     * Heat waves 🔥
-     * Frost ❄️
-     * Strong winds / Cyclones 🌪️
+     * Heavy rainfall 
+     * Heat waves 
+     * Frost 
+     * Strong winds / Cyclones 
 
 ---
 
 ### 🚀 Key Features
 
-* 📍 Location-based crop advisory
-* 🌦️ Real-time weather & soil data
-* 📷 Image-based crop and soil detection
-* 🧠 AI-powered crop recommendations
-* 📅 Crop calendar with reminders
-* ⚠️ Weather and risk alerts
-* 🌾 Farmer-friendly and easy-to-use interface
+* Location-based crop advisory
+* Real-time weather & soil data
+* Image-based crop and soil detection
+* AI-powered crop recommendations
+* Crop calendar with reminders
+* Weather and risk alerts
+* Farmer-friendly and easy-to-use interface
 
 ---
 
