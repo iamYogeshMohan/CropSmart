@@ -1,15 +1,18 @@
-🌱 Crop Smart – Project Overview
+## 🌱 Crop Smart – Project Overview
 
-📌 Project Title
+### 📌 Project Title
 
-Crop Smart – AI-Based Smart Crop Advisory System
+**Crop Smart – AI-Based Smart Crop Advisory System**
 
-Overview
+---
+
+### 🧠 Overview
 
 Crop Smart is an intelligent farming assistance application designed to support farmers in making data-driven agricultural decisions. The system integrates **location-based analysis, soil and weather data, and AI-powered image processing** to recommend suitable crops and provide complete crop management guidance. The goal of Crop Smart is to improve crop yield, reduce farming risks, and enhance farmer satisfaction using modern technology.
 
+---
 
-Objective
+### 🎯 Objective
 
 * To help farmers select the **right crop** based on soil and climatic conditions
 * To provide **real-time crop recommendations** using location and image data
